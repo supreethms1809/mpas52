@@ -1792,11 +1792,18 @@ module atm_time_integration
          ! The integration coefficients were precomputed and stored in defc_a and defc_b
 
          if(config_horiz_mixing == "2d_smagorinsky") then
-!$acc parallel do vector_length(128) private(d_diag,d_off_diag)
+!$acc parallel vector_length(128) 
+!$acc loop seq
+           do k = 1,nVertLevels
+              d_diag(k) = 0.0
+              d_off_diag(k) = 0.0
+           end do
+
+!$acc loop private(d_diag,d_off_diag)
            do iCell = cellStart,cellEnd
              do k=1,nVertLevels
-               d_diag(k) = 0.0
-               d_off_diag(k) = 0.0
+               !d_diag(k) = 0.0
+               !d_off_diag(k) = 0.0
 !$acc loop seq
                   do iEdge=1,nEdgesOnCell(iCell)
                   
@@ -1805,9 +1812,7 @@ module atm_time_integration
                      d_off_diag(k) = d_off_diag(k) + defc_b(iEdge,iCell)*u(k,EdgesOnCell(iEdge,iCell))  &
                                                    + defc_a(iEdge,iCell)*v(k,EdgesOnCell(iEdge,iCell))
                   end do
-              ! end do
 !DIR$ IVDEP
-              ! do k=1, nVertLevels
                   ! here is the Smagorinsky formulation, 
                   ! followed by imposition of an upper bound on the eddy viscosity
                   kdiff(k,iCell) = min((c_s * config_len_disp)**2 * sqrt(d_diag(k)**2 + d_off_diag(k)**2),(0.01*config_len_disp**2) * invDt)
