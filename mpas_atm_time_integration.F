@@ -1763,7 +1763,7 @@ module atm_time_integration
       real (kind=RKIND) :: u_diffusion
 
       real (kind=RKIND) :: kdiffu, z1, z2, z3, z4, zm, z0, zp
-
+      real (kind=RKIND) :: temp1, temp2
       
 
       real (kind=RKIND) :: flux3, flux4
@@ -1792,18 +1792,14 @@ module atm_time_integration
          ! The integration coefficients were precomputed and stored in defc_a and defc_b
 
          if(config_horiz_mixing == "2d_smagorinsky") then
+           temp1 = (c_s * config_len_disp)**2
+           temp2 = (0.01*config_len_disp**2) * invDt
 !$acc parallel vector_length(128) 
-!$acc loop seq
-           do k = 1,nVertLevels
-              d_diag(k) = 0.0
-              d_off_diag(k) = 0.0
-           end do
-
 !$acc loop private(d_diag,d_off_diag)
            do iCell = cellStart,cellEnd
              do k=1,nVertLevels
-               !d_diag(k) = 0.0
-               !d_off_diag(k) = 0.0
+               d_diag(k) = 0.0
+               d_off_diag(k) = 0.0
 !$acc loop seq
                   do iEdge=1,nEdgesOnCell(iCell)
                   
@@ -1815,7 +1811,8 @@ module atm_time_integration
 !DIR$ IVDEP
                   ! here is the Smagorinsky formulation, 
                   ! followed by imposition of an upper bound on the eddy viscosity
-                  kdiff(k,iCell) = min((c_s * config_len_disp)**2 * sqrt(d_diag(k)**2 + d_off_diag(k)**2),(0.01*config_len_disp**2) * invDt)
+                  !kdiff(k,iCell) = min((c_s * config_len_disp)**2 * sqrt(d_diag(k)**2 + d_off_diag(k)**2),(0.01*config_len_disp**2) * invDt)
+                  kdiff(k,iCell) = min(temp1 * sqrt(d_diag(k)**2 + d_off_diag(k)**2),temp2)
                end do
             end do
 !$acc end parallel do
