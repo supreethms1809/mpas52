@@ -523,7 +523,7 @@ module atm_time_integration
 
         
       !verify init 
-      CALL kgen_init_check(check_status, tolerance=1.D-14, verboseLevel=1) 
+      CALL kgen_init_check(check_status, tolerance=1.D-10, verboseLevel=1) 
         
       !extern verify variables 
       CALL kv_externs_atm_time_integration(check_status) 
@@ -677,29 +677,29 @@ module atm_time_integration
       WRITE (*, *) "" 
         
       !Measuring elapsed time. Please increase the value of kgen_maxiter to get improve timing measurment resolution. 
-     ! CALL SYSTEM_CLOCK(kgen_start_clock, kgen_rate_clock) 
-     ! DO kgen_intvar = 1, kgen_maxiter 
-     ! call atm_compute_dyn_tend_work(nCells, nEdges, nVertices, nVertLevels, &
-     !    nCellsSolve, nEdgesSolve, vertexDegree, maxEdges, maxEdges2, num_scalars, moist_start, moist_end, &
-     !    fEdge, dvEdge, dcEdge, invDcEdge, invDvEdge, invAreaCell, invAreaTriangle, meshScalingDel2, meshScalingDel4, &
-     !    weightsOnEdge, zgrid, rho_edge, rho_zz, ru, u, v, tend_u, &
-     !    divergence, vorticity, ke, pv_edge, theta_m, rw, tend_rho, &
-     !    rt_diabatic_tend, tend_theta, tend_w, w, cqw, rb, rr, pp, pressure_b, zz, zxu, cqu, & 
-     !    h_divergence, kdiff, edgesOnCell_sign, edgesOnVertex_sign, rw_save, ru_save, &
-     !    theta_m_save, exner, rr_save, scalars, tend_u_euler, tend_w_euler, tend_theta_euler, deriv_two, &
-     !    cellsOnEdge, verticesOnEdge, edgesOnCell, edgesOnEdge, cellsOnCell, edgesOnVertex, nEdgesOnCell, nEdgesOnEdge, &
-     !    latCell, latEdge, angleEdge, u_init, advCellsForEdge, nAdvCellsForEdge, adv_coefs, adv_coefs_3rd, &
-     !    rdzu, rdzw, fzm, fzp, qv_init, t_init, cf1, cf2, cf3, r_earth, ur_cell, vr_cell, defc_a, defc_b, &
-     !    tend_w_pgf, tend_w_buoy, coef_3rd_order, c_s, config_mix_full, config_horiz_mixing, config_del4u_div_factor, &
-     !    config_h_mom_eddy_visc2, config_v_mom_eddy_visc2, config_h_theta_eddy_visc2, config_v_theta_eddy_visc2, &
-     !    config_h_theta_eddy_visc4, config_h_mom_eddy_visc4, config_visc4_2dsmag, config_len_disp, rk_step, dt, &
-     !    tend_rtheta_adv, rthdynten, &
-     !    cellStart, cellEnd, vertexStart, vertexEnd, edgeStart, edgeEnd, &
-     !    cellSolveStart, cellSolveEnd, vertexSolveStart, vertexSolveEnd, edgeSolveStart, edgeSolveEnd)
-     ! END DO   
-     ! CALL SYSTEM_CLOCK(kgen_stop_clock, kgen_rate_clock) 
-     ! kgen_elapsed_time = 1.0e6*(kgen_stop_clock - kgen_start_clock)/REAL(kgen_rate_clock*kgen_maxiter) 
-     ! WRITE (*, *) "atm_compute_dyn_tend_work : Time per call (usec): ", kgen_elapsed_time 
+!      CALL SYSTEM_CLOCK(kgen_start_clock, kgen_rate_clock) 
+!      DO kgen_intvar = 1, kgen_maxiter 
+!      call atm_compute_dyn_tend_work(nCells, nEdges, nVertices, nVertLevels, &
+!         nCellsSolve, nEdgesSolve, vertexDegree, maxEdges, maxEdges2, num_scalars, moist_start, moist_end, &
+!         fEdge, dvEdge, dcEdge, invDcEdge, invDvEdge, invAreaCell, invAreaTriangle, meshScalingDel2, meshScalingDel4, &
+!         weightsOnEdge, zgrid, rho_edge, rho_zz, ru, u, v, tend_u, &
+!         divergence, vorticity, ke, pv_edge, theta_m, rw, tend_rho, &
+!         rt_diabatic_tend, tend_theta, tend_w, w, cqw, rb, rr, pp, pressure_b, zz, zxu, cqu, & 
+!         h_divergence, kdiff, edgesOnCell_sign, edgesOnVertex_sign, rw_save, ru_save, &
+!         theta_m_save, exner, rr_save, scalars, tend_u_euler, tend_w_euler, tend_theta_euler, deriv_two, &
+!         cellsOnEdge, verticesOnEdge, edgesOnCell, edgesOnEdge, cellsOnCell, edgesOnVertex, nEdgesOnCell, nEdgesOnEdge, &
+!         latCell, latEdge, angleEdge, u_init, advCellsForEdge, nAdvCellsForEdge, adv_coefs, adv_coefs_3rd, &
+!         rdzu, rdzw, fzm, fzp, qv_init, t_init, cf1, cf2, cf3, r_earth, ur_cell, vr_cell, defc_a, defc_b, &
+!         tend_w_pgf, tend_w_buoy, coef_3rd_order, c_s, config_mix_full, config_horiz_mixing, config_del4u_div_factor, &
+!         config_h_mom_eddy_visc2, config_v_mom_eddy_visc2, config_h_theta_eddy_visc2, config_v_theta_eddy_visc2, &
+!         config_h_theta_eddy_visc4, config_h_mom_eddy_visc4, config_visc4_2dsmag, config_len_disp, rk_step, dt, &
+!         tend_rtheta_adv, rthdynten, &
+!         cellStart, cellEnd, vertexStart, vertexEnd, edgeStart, edgeEnd, &
+!         cellSolveStart, cellSolveEnd, vertexSolveStart, vertexSolveEnd, edgeSolveStart, edgeSolveEnd)
+!      END DO   
+!      CALL SYSTEM_CLOCK(kgen_stop_clock, kgen_rate_clock) 
+!      kgen_elapsed_time = 1.0e6*(kgen_stop_clock - kgen_start_clock)/REAL(kgen_rate_clock*kgen_maxiter) 
+!      WRITE (*, *) "atm_compute_dyn_tend_work : Time per call (usec): ", kgen_elapsed_time 
         
       CONTAINS 
         
@@ -1750,8 +1750,11 @@ module atm_time_integration
 
       !real (kind=RKIND), parameter :: c_s = 0.125
       real (kind=RKIND), dimension( nVertLevels+1 ) :: d_diag, d_off_diag, flux_arr
-      real (kind=RKIND), dimension( nVertLevels + 1 ) :: wduz, wdwz, wdtz, dpzx
-      real (kind=RKIND), dimension( nVertLevels ) :: ru_edge_w, q, u_mix
+      real (kind=RKIND), dimension( nVertLevels + 1,cellSolveEnd ) :: wdwz, wdtz
+      real (kind=RKIND), dimension( nVertLevels + 1,edgeSolveEnd ) :: wduz
+      real (kind=RKIND), dimension( nVertLevels + 1) :: dpzx
+      real (kind=RKIND), dimension( nVertLevels ) ::  u_mix
+       !ru_edge_w, q,
       real (kind=RKIND) :: theta_turb_flux, w_turb_flux, r
       real (kind=RKIND) :: scalar_weight
       real (kind=RKIND) :: inv_r_earth
@@ -1761,6 +1764,7 @@ module atm_time_integration
       real (kind=RKIND) :: h_mom_eddy_visc4, v_mom_eddy_visc2
       real (kind=RKIND) :: h_theta_eddy_visc4, v_theta_eddy_visc2
       real (kind=RKIND) :: u_diffusion
+	   real (kind=RKIND) :: q,ru_edge_w
 
       real (kind=RKIND) :: kdiffu, z1, z2, z3, z4, zm, z0, zp
       real (kind=RKIND) :: temp1, temp2
@@ -1795,7 +1799,7 @@ module atm_time_integration
            temp1 = (c_s * config_len_disp)**2
            temp2 = (0.01*config_len_disp**2) * invDt
 !$acc parallel vector_length(128) 
-!$acc loop private(d_diag,d_off_diag)
+!$acc loop gang private(d_diag,d_off_diag)
            do iCell = cellStart,cellEnd
              do k=1,nVertLevels
                d_diag(k) = 0.0
@@ -1815,7 +1819,7 @@ module atm_time_integration
                   kdiff(k,iCell) = min(temp1 * sqrt(d_diag(k)**2 + d_off_diag(k)**2),temp2)
                end do
             end do
-!$acc end parallel do
+!$acc end parallel
             h_mom_eddy_visc4   = config_visc4_2dsmag * config_len_disp**3
             h_theta_eddy_visc4 = h_mom_eddy_visc4
 
@@ -1834,51 +1838,52 @@ module atm_time_integration
 
       ! accumulate horizontal mass-flux
 
-      do iCell=cellStart,cellEnd
-         h_divergence(1:nVertLevels,iCell) = 0.0
-         do i=1,nEdgesOnCell(iCell)
+!$acc parallel vector_length(128)
+!$acc loop gang 
+ do iCell=cellStart,cellEnd
+         do k=1,nVertLevels
+            h_divergence(k,iCell) = 0.0
+            r = invAreaCell(iCell)
+!$acc loop seq
+            do i=1,nEdgesOnCell(iCell)
             iEdge = edgesOnCell(i,iCell)
             edge_sign = edgesOnCell_sign(i,iCell) * dvEdge(iEdge)
-!DIR$ IVDEP
-            do k=1,nVertLevels
-               h_divergence(k,iCell) = h_divergence(k,iCell) + edge_sign * ru(k,iEdge)
+              h_divergence(k,iCell) = h_divergence(k,iCell) + edge_sign * ru(k,iEdge)
             end do
-         end do
-      end do
-
-      ! compute horiontal mass-flux divergence, add vertical mass flux divergence to complete tend_rho
-
-      do iCell = cellStart,cellEnd
-         r = invAreaCell(iCell)
-         do k = 1,nVertLevels
             h_divergence(k,iCell) = h_divergence(k,iCell) * r
          end do
-      end do    
+      end do
+!$acc end parallel
 
       !
       ! dp / dz and tend_rho
       !
       ! only needed on first rk_step with pert variables defined a pert from time t
       !
+ 
+
       if(rk_step == 1) then
 
         rgas_cprcv = rgas*cp/cv
+!$acc parallel vector_length(128)
+!$acc loop gang 
         do iCell = cellStart,cellEnd
-
 !DIR$ IVDEP
           do k = 1,nVertLevels
             tend_rho(k,iCell) = -h_divergence(k,iCell)-rdzw(k)*(rw(k+1,iCell)-rw(k,iCell)) + tend_rho_physics(k,iCell)
             dpdz(k,iCell) = -gravity*(rb(k,iCell)*(qtot(k,iCell)) + rr_save(k,iCell)*(1.+qtot(k,iCell)))
           end do
         end do
+!$acc end parallel
       end if
-
 !$OMP BARRIER
 
       !
       ! Compute u (normal) velocity tendency for each edge (cell face)
       !
-
+ if(rk_step == 1) then
+!$acc parallel vector_length(128)
+!$acc loop gang 
       do iEdge=edgeSolveStart,edgeSolveEnd
 
          cell1 = cellsOnEdge(1,iEdge)
@@ -1886,59 +1891,65 @@ module atm_time_integration
 
          ! horizontal pressure gradient 
 
-         if(rk_step == 1) then
 !DIR$ IVDEP
             do k=1,nVertLevels
                tend_u_euler(k,iEdge) =  - cqu(k,iEdge)*( (pp(k,cell2)-pp(k,cell1))*invDcEdge(iEdge)/(.5*(zz(k,cell2)+zz(k,cell1))) &
                                               -0.5*zxu(k,iEdge)*(dpdz(k,cell1)+dpdz(k,cell2)) )
             end do
-
-         end if
-
+     end do
+!$acc end parallel
+  end if
          ! vertical transport of u
 
-         wduz(1) = 0.
+!$acc parallel vector_length(128)
+!$acc loop gang
+      do iEdge=edgeSolveStart,edgeSolveEnd
+
+         cell1 = cellsOnEdge(1,iEdge)
+         cell2 = cellsOnEdge(2,iEdge)
+ 
+         wduz(1,iEdge) = 0.
 
          k = 2
-         wduz(k) =  0.5*( rw(k,cell1)+rw(k,cell2))*(fzm(k)*u(k,iEdge)+fzp(k)*u(k-1,iEdge))
+         wduz(k,iEdge) =  0.5*( rw(k,cell1)+rw(k,cell2))*(fzm(k)*u(k,iEdge)+fzp(k)*u(k-1,iEdge))
+!$acc loop seq
          do k=3,nVertLevels-1
-            wduz(k) = flux3( u(k-2,iEdge),u(k-1,iEdge),u(k,iEdge),u(k+1,iEdge),0.5*(rw(k,cell1)+rw(k,cell2)), 1.0_RKIND )
-         end do
-         k = nVertLevels
-         wduz(k) =  0.5*( rw(k,cell1)+rw(k,cell2))*(fzm(k)*u(k,iEdge)+fzp(k)*u(k-1,iEdge))
+            wduz(k,iEdge) = flux3( u(k-2,iEdge),u(k-1,iEdge),u(k,iEdge),u(k+1,iEdge),0.5*(rw(k,cell1)+rw(k,cell2)), 1.0_RKIND )
 
-         wduz(nVertLevels+1) = 0.
+         end do
+
+         k = nVertLevels
+         wduz(k,iEdge) =  0.5*( rw(k,cell1)+rw(k,cell2))*(fzm(k)*u(k,iEdge)+fzp(k)*u(k-1,iEdge))
+
+         wduz(nVertLevels+1,iEdge) = 0.
+       end do 
+!$acc end parallel
+
+!$acc parallel vector_length(128)
+!$acc loop gang
+       do iEdge=edgeSolveStart,edgeSolveEnd
+         cell1 = cellsOnEdge(1,iEdge)
+         cell2 = cellsOnEdge(2,iEdge)
 
 !DIR$ IVDEP
+!$acc loop vector private(q) 
          do k=1,nVertLevels
-            tend_u(k,iEdge) = - rdzw(k)*(wduz(k+1)-wduz(k)) !  first use of tend_u
-         end do
-
-         ! Next, nonlinear Coriolis term (q) following Ringler et al JCP 2009
-
-         q(:) = 0.0
+            tend_u(k,iEdge) = - rdzw(k)*(wduz(k+1,iEdge)-wduz(k,iEdge)) 
+            q = 0.0
+!$acc loop seq
          do j = 1,nEdgesOnEdge(iEdge)
             eoe = edgesOnEdge(j,iEdge)
-            do k=1,nVertLevels
                workpv = 0.5 * (pv_edge(k,iEdge) + pv_edge(k,eoe))
 !  the original definition of pv_edge had a factor of 1/density.  We have removed that factor
 !  given that it was not integral to any conservation property of the system
-               q(k) = q(k) + weightsOnEdge(j,iEdge) * u(k,eoe) * workpv
+               q = q + weightsOnEdge(j,iEdge) * u(k,eoe) * workpv
             end do
+            tend_u(k,iEdge) = tend_u(k,iEdge) + rho_edge(k,iEdge)* (q -(ke(k,cell2) - ke(k,cell1))       &
+                                                                 * invDcEdge(iEdge)) &
+                                             - u(k,iEdge)*0.5*(h_divergence(k,cell1)+h_divergence(k,cell2))
          end do
-
-!DIR$ IVDEP
-         do k=1,nVertLevels
-
-            ! horizontal ke gradient and vorticity terms in the vector invariant formulation
-            ! of the horizontal momentum equation
-            tend_u(k,iEdge) = tend_u(k,iEdge) + rho_edge(k,iEdge)* (q(k) - (ke(k,cell2) - ke(k,cell1))       &
-                                                                 * invDcEdge(iEdge))                            &
-                                             - u(k,iEdge)*0.5*(h_divergence(k,cell1)+h_divergence(k,cell2)) 
-         end do
-
       end do
-
+!$acc end parallel
 
       !
       !  horizontal mixing for u
@@ -1953,9 +1964,11 @@ module atm_time_integration
          ! del^4 horizontal filter.  We compute this as del^2 ( del^2 (u) ).
          ! First, storage to hold the result from the first del^2 computation.
 
-         delsq_u(1:nVertLevels,edgeStart:edgeEnd) = 0.0
-
+!$acc parallel vector_length(128)   
+!$acc loop gang 
          do iEdge=edgeStart,edgeEnd
+            do k=1,nVertLevels
+                delsq_u(k,iEdge) = 0.0
             cell1 = cellsOnEdge(1,iEdge)
             cell2 = cellsOnEdge(2,iEdge)
             vertex1 = verticesOnEdge(1,iEdge)
@@ -1963,63 +1976,72 @@ module atm_time_integration
             r_dc = invDcEdge(iEdge)
             r_dv = min(invDvEdge(iEdge), 4*invDcEdge(iEdge))
 
-!DIR$ IVDEP
-            do k=1,nVertLevels
-
                ! Compute diffusion, computed as \nabla divergence - k \times \nabla vorticity
                !                    only valid for h_mom_eddy_visc4 == constant
+
+
               u_diffusion =   ( divergence(k,cell2)  - divergence(k,cell1) ) * r_dc  &
                               -( vorticity(k,vertex2) - vorticity(k,vertex1) ) * r_dv
 
                delsq_u(k,iEdge) = delsq_u(k,iEdge) + u_diffusion
 
-               kdiffu = 0.5*(kdiff(k,cell1)+kdiff(k,cell2))
-
                ! include 2nd-orer diffusion here 
                tend_u_euler(k,iEdge) = tend_u_euler(k,iEdge) &
-                                       + rho_edge(k,iEdge)* kdiffu * u_diffusion * meshScalingDel2(iEdge)
+                                       + rho_edge(k,iEdge)* 0.5*(kdiff(k,cell1)+kdiff(k,cell2)) * u_diffusion * meshScalingDel2(iEdge)
 
             end do
          end do
+!$acc end parallel
 
          if (h_mom_eddy_visc4 > 0.0) then  ! 4th order mixing is active
 
 !$OMP BARRIER
 
-            do iVertex=vertexStart,vertexEnd
-               delsq_vorticity(1:nVertLevels,iVertex) = 0.0
-               do i=1,vertexDegree
-                  iEdge = edgesOnVertex(i,iVertex)
-                  edge_sign = invAreaTriangle(iVertex) * dcEdge(iEdge) * edgesOnVertex_sign(i,iVertex)
-                  do k=1,nVertLevels
-                     delsq_vorticity(k,iVertex) = delsq_vorticity(k,iVertex) + edge_sign * delsq_u(k,iEdge)
-                  end do
+!$acc parallel vector_length(128)
+!$acc loop gang         
+        do iVertex=vertexStart,vertexEnd
+          do k=1,nVertLevels   
+            delsq_vorticity(k,iVertex) = 0.0
+            do i=1,vertexDegree
+               iEdge = edgesOnVertex(i,iVertex)
+               edge_sign = invAreaTriangle(iVertex) * dcEdge(iEdge) * edgesOnVertex_sign(i,iVertex)
+                  
+                  delsq_vorticity(k,iVertex) = delsq_vorticity(k,iVertex) + edge_sign * delsq_u(k,iEdge)
                end do
             end do
 
-            do iCell=cellStart,cellEnd
-               delsq_divergence(1:nVertLevels,iCell) = 0.0
-               r = invAreaCell(iCell)
-               do i=1,nEdgesOnCell(iCell)
-                  iEdge = edgesOnCell(i,iCell)
-                  edge_sign = r * dvEdge(iEdge) * edgesOnCell_sign(i,iCell)
-                  do k=1,nVertLevels
-                     delsq_divergence(k,iCell) = delsq_divergence(k,iCell) + edge_sign * delsq_u(k,iEdge)
-                  end do
+         end do
+!$acc end parallel
+
+!$acc parallel vector_length(128)
+!$acc loop gang 
+         do iCell=cellStart,cellEnd
+           do k=1,nVertLevels
+            delsq_divergence(k,iCell) = 0.0
+            r = invAreaCell(iCell)
+            do i=1,nEdgesOnCell(iCell)
+               iEdge = edgesOnCell(i,iCell)
+               edge_sign = r * dvEdge(iEdge) * edgesOnCell_sign(i,iCell)
+                  delsq_divergence(k,iCell) = delsq_divergence(k,iCell) + edge_sign * delsq_u(k,iEdge)
                end do
             end do
+
+         end do
+!$acc end parallel
 
 !$OMP BARRIER
 
-            do iEdge=edgeSolveStart,edgeSolveEnd
-               cell1 = cellsOnEdge(1,iEdge)
-               cell2 = cellsOnEdge(2,iEdge)
-               vertex1 = verticesOnEdge(1,iEdge)
-               vertex2 = verticesOnEdge(2,iEdge)
+!$acc parallel vector_length(128)
+!$acc loop gang private(r_dc,r_dv,u_mix_scale) 
+         do iEdge=edgeSolveStart,edgeSolveEnd
+            cell1 = cellsOnEdge(1,iEdge)
+            cell2 = cellsOnEdge(2,iEdge)
+            vertex1 = verticesOnEdge(1,iEdge)
+            vertex2 = verticesOnEdge(2,iEdge)
 
-               u_mix_scale = meshScalingDel4(iEdge)*h_mom_eddy_visc4
-               r_dc = u_mix_scale * config_del4u_div_factor * invDcEdge(iEdge)
-               r_dv = u_mix_scale * min(invDvEdge(iEdge), 4*invDcEdge(iEdge))
+            u_mix_scale = meshScalingDel4(iEdge)*h_mom_eddy_visc4
+            r_dc = u_mix_scale * config_del4u_div_factor * invDcEdge(iEdge)
+            r_dv = u_mix_scale * min(invDvEdge(iEdge), 4*invDcEdge(iEdge))
 
 !DIR$ IVDEP
                do k=1,nVertLevels
@@ -2037,7 +2059,7 @@ module atm_time_integration
                   
                end do
             end do
-         
+!$acc end parallel         
          end if ! 4th order mixing is active 
 
       !
@@ -2046,7 +2068,8 @@ module atm_time_integration
          if ( v_mom_eddy_visc2 > 0.0 ) then
 
             if (config_mix_full) then  ! mix full state
-
+!$acc parallel vector_length(128)
+!$acc loop gang 
                do iEdge=edgeSolveStart,edgeSolveEnd
 
                   cell1 = cellsOnEdge(1,iEdge)
@@ -2068,9 +2091,10 @@ module atm_time_integration
                                        -(u(k  ,iEdge)-u(k-1,iEdge))/(z0-zm) )/(0.5*(zp-zm))
                   end do
                end do
-
+!$acc end parallel
             else  ! idealized cases where we mix on the perturbation from the initial 1-D state
-
+!$acc parallel vector_length(128)
+!$acc loop gang 
                do iEdge=edgeSolveStart,edgeSolveEnd
 
                   cell1 = cellsOnEdge(1,iEdge)
@@ -2099,7 +2123,7 @@ module atm_time_integration
                                        -(u_mix(k  )-u_mix(k-1))/(z0-zm) )/(0.5*(zp-zm))
                   end do
                end do
-
+!$acc end parallel
             end if  ! mix perturbation state
 
          end if  ! vertical mixing of horizontal momentum
@@ -2110,6 +2134,8 @@ module atm_time_integration
 
 !  add in mixing for u
 
+!$acc parallel vector_length(128)
+!$acc loop gang 
       do iEdge=edgeSolveStart,edgeSolveEnd
 !DIR$ IVDEP
          do k=1,nVertLevels
@@ -2117,7 +2143,7 @@ module atm_time_integration
             tend_u(k,iEdge) = tend_u(k,iEdge) + tend_u_euler(k,iEdge) + tend_ru_physics(k,iEdge)
          end do
       end do
-
+!$acc end parallel
 
 !----------- rhs for w
 
@@ -2126,35 +2152,29 @@ module atm_time_integration
       !  horizontal advection for w
       !
 
-      do iCell=cellSolveStart,cellSolveEnd    ! Technically updating fewer cells than before...
-         tend_w(1:nVertLevels+1,iCell) = 0.0
-         do i=1,nEdgesOnCell(iCell)
-            iEdge = edgesOnCell(i,iCell)
-            edge_sign = edgesOnCell_sign(i,iCell) * dvEdge(iEdge) * 0.5
-
-            do k=2,nVertLevels
-               ru_edge_w(k) = fzm(k)*ru(k,iEdge) + fzp(k)*ru(k-1,iEdge)
+!$acc parallel vector_length(128)
+!$acc loop gang 
+     do iCell=cellSolveStart,cellSolveEnd
+!$acc loop private(flux,edge_sign,ru_edge_w,scalar_weight)
+            do k = 2,nVertLevels
+               tend_w(k,iCell) = 0.0
+!$acc loop seq 
+                 do i=1,nEdgesOnCell(iCell)
+                    iEdge = edgesOnCell(i,iCell)
+                    edge_sign = edgesOnCell_sign(i,iCell) * dvEdge(iEdge) * 0.5
+                    ru_edge_w = fzm(k)*ru(k,iEdge) + fzp(k)*ru(k-1,iEdge)
+                    flux = 0.0
+!$acc loop seq
+                    do j=1,nAdvCellsForEdge(iEdge)
+                       iAdvCell = advCellsForEdge(j,iEdge)
+                       scalar_weight = adv_coefs(j,iEdge) + sign(1.0_RKIND,ru_edge_w) * adv_coefs_3rd(j,iEdge)
+                       flux = flux + scalar_weight * w(k,iAdvCell)
+                    end do
+                tend_w(k,iCell) = tend_w(k,iCell) - edgesOnCell_sign(i,iCell) * ru_edge_w*flux
             end do
-
-            flux_arr(1:nVertLevels) = 0.0
-
-            ! flux_arr stores the value of w at the cell edge used in the horizontal transport
-
-            do j=1,nAdvCellsForEdge(iEdge)
-               iAdvCell = advCellsForEdge(j,iEdge)
-               do k=2,nVertLevels
-                  scalar_weight = adv_coefs(j,iEdge) + sign(1.0_RKIND,ru_edge_w(k)) * adv_coefs_3rd(j,iEdge)
-                  flux_arr(k) = flux_arr(k) + scalar_weight * w(k,iAdvCell)
-               end do
-            end do
-
-!DIR$ IVDEP
-            do k=2,nVertLevels
-               tend_w(k,iCell) = tend_w(k,iCell) - edgesOnCell_sign(i,iCell) * ru_edge_w(k)*flux_arr(k)
-            end do
-
          end do
       end do
+!$acc end parallel
 
 
       !
@@ -2171,12 +2191,15 @@ module atm_time_integration
          ! First, storage to hold the result from the first del^2 computation.
          !  we copied code from the theta mixing, hence the theta* names.
 
-
-         delsq_w(1:nVertLevels,cellStart:cellEnd) = 0.0
-
+   delsq_w(1:nVertLevels,cellStart:cellEnd) = 0.0
+!$acc parallel vector_length(128)
+!$acc loop gang      
          do iCell=cellStart,cellEnd
-            tend_w_euler(1:nVertLevels+1,iCell) = 0.0
+            do k = 2,nVertLevels
+                tend_w_euler(k,iCell) = 0.0
+               ! delsq_w(k,iCell) = 0.0
             r_areaCell = invAreaCell(iCell)
+!$acc loop seq
             do i=1,nEdgesOnCell(iCell)
                iEdge = edgesOnCell(i,iCell)
 
@@ -2185,10 +2208,9 @@ module atm_time_integration
                cell1 = cellsOnEdge(1,iEdge)
                cell2 = cellsOnEdge(2,iEdge)
 
-!DIR$ IVDEP
-              do k=2,nVertLevels
+             ! do k=2,nVertLevels
 
-                  w_turb_flux =  edge_sign*(rho_edge(k,iEdge)+rho_edge(k-1,iEdge))*(w(k,cell2) - w(k,cell1))
+                  w_turb_flux = edge_sign*(rho_edge(k,iEdge)+rho_edge(k-1,iEdge))*(w(k,cell2) - w(k,cell1))
                   delsq_w(k,iCell) = delsq_w(k,iCell) + w_turb_flux
                   w_turb_flux = w_turb_flux * meshScalingDel2(iEdge) * 0.25 * &
                                   (kdiff(k,cell1)+kdiff(k,cell2)+kdiff(k-1,cell1)+kdiff(k-1,cell2))
@@ -2196,27 +2218,30 @@ module atm_time_integration
                end do
             end do
          end do
+!$acc end parallel
 
 !$OMP BARRIER
 
          if (h_mom_eddy_visc4 > 0.0) then  ! 4th order mixing is active
 
-            do iCell=cellSolveStart,cellSolveEnd    ! Technically updating fewer cells than before...
-               r_areaCell = h_mom_eddy_visc4 * invAreaCell(iCell)
-               do i=1,nEdgesOnCell(iCell)
-                  iEdge = edgesOnCell(i,iCell)
-                  cell1 = cellsOnEdge(1,iEdge)
-                  cell2 = cellsOnEdge(2,iEdge)
+!$acc parallel vector_length(128)
+!$acc loop gang 
+         do iCell=cellSolveStart,cellSolveEnd    ! Technically updating fewer cells than before...
+            r_areaCell = h_mom_eddy_visc4 * invAreaCell(iCell)
+            do i=1,nEdgesOnCell(iCell)
+               iEdge = edgesOnCell(i,iCell)
+               cell1 = cellsOnEdge(1,iEdge)
+               cell2 = cellsOnEdge(2,iEdge)
 
-                  edge_sign = meshScalingDel4(iEdge)*r_areaCell*dvEdge(iEdge)*edgesOnCell_sign(i,iCell) * invDcEdge(iEdge)
+               edge_sign = meshScalingDel4(iEdge)*r_areaCell*dvEdge(iEdge)*edgesOnCell_sign(i,iCell) * invDcEdge(iEdge)
 
-                  do k=2,nVertLevels
-                     tend_w_euler(k,iCell) = tend_w_euler(k,iCell) - edge_sign * (delsq_w(k,cell2) - delsq_w(k,cell1))
-                  end do
-           
+               do k=2,nVertLevels
+                  tend_w_euler(k,iCell) = tend_w_euler(k,iCell) - edge_sign * (delsq_w(k,cell2) - delsq_w(k,cell1))
                end do
+           
             end do
-
+         end do
+!$acc end parallel
          end if ! 4th order mixing is active 
 
       end if ! horizontal mixing for w computed in first rk_step
@@ -2232,42 +2257,55 @@ module atm_time_integration
       !  vertical advection, pressure gradient and buoyancy for w
       !
 
+!$acc parallel vector_length(128)
+!$acc loop gang 
       do iCell=cellSolveStart,cellSolveEnd
 
-         wdwz(1) = 0.0
+         wdwz(1,iCell) = 0.0
 
          k = 2
-         wdwz(k) =  0.25*(rw(k,icell)+rw(k-1,iCell))*(w(k,iCell)+w(k-1,iCell))
+         wdwz(k,iCell) =  0.25*(rw(k,icell)+rw(k-1,iCell))*(w(k,iCell)+w(k-1,iCell))
+!$acc loop seq
          do k=3,nVertLevels-1
-            wdwz(k) = flux3( w(k-2,iCell),w(k-1,iCell),w(k,iCell),w(k+1,iCell),0.5*(rw(k,iCell)+rw(k-1,iCell)), 1.0_RKIND )
+            wdwz(k,iCell) = flux3(w(k-2,iCell),w(k-1,iCell),w(k,iCell),w(k+1,iCell),0.5*(rw(k,iCell)+rw(k-1,iCell)), 1.0_RKIND )
          end do
          k = nVertLevels
-         wdwz(k) =  0.25*(rw(k,icell)+rw(k-1,iCell))*(w(k,iCell)+w(k-1,iCell))
+         wdwz(k,iCell) =  0.25*(rw(k,icell)+rw(k-1,iCell))*(w(k,iCell)+w(k-1,iCell))
 
-         wdwz(nVertLevels+1) = 0.0
+         wdwz(nVertLevels+1,iCell) = 0.0
+      end do
+!$acc end parallel
 
       !  Note: next we are also dividing through by the cell area after the horizontal flux divergence
 
-!DIR$ IVDEP
+!$acc parallel vector_length(128)
+!$acc loop gang
+      do iCell = cellSolveStart,cellSolveEnd
          do k=2,nVertLevels
-            tend_w(k,iCell) = tend_w(k,iCell) * invAreaCell(iCell) -rdzu(k)*(wdwz(k+1)-wdwz(k))
+            tend_w(k,iCell) = tend_w(k,iCell) * invAreaCell(iCell) -rdzu(k)*(wdwz(k+1,iCell)-wdwz(k,icell))
          end do
+      end do
+!$acc end parallel   
 
-         if(rk_step == 1) then
+     if(rk_step == 1) then
+!$acc parallel vector_length(128)
+!$acc loop gang
+      do iCell = cellSolveStart,cellSolveEnd
 !DIR$ IVDEP
             do k=2,nVertLevels
               tend_w_euler(k,iCell) = tend_w_euler(k,iCell) - cqw(k,iCell)*(   &
                                            rdzu(k)*(pp(k,iCell)-pp(k-1,iCell)) &
                                          - (fzm(k)*dpdz(k,iCell) + fzp(k)*dpdz(k-1,iCell)) )  ! dpdz is the buoyancy term here.
             end do
-          end if
-
       end do
+!$acc end parallel	  
+!     end if  
 
-      if (rk_step == 1) then
+!      if (rk_step == 1) then
 
          if ( v_mom_eddy_visc2 > 0.0 ) then
-
+!$acc parallel vector_length(128)
+!$acc loop gang 
             do iCell=cellSolveStart,cellSolveEnd
 !DIR$ IVDEP
                do k=2,nVertLevels
@@ -2276,64 +2314,68 @@ module atm_time_integration
                                           -(w(k  ,iCell)-w(k-1,iCell))*rdzw(k-1) )*rdzu(k)
                end do
             end do
-
+!$acc end parallel
          end if
 
       end if ! mixing term computed first rk_step
 
       ! add in mixing terms for w
 
+!$acc parallel vector_length(128)
+!$acc loop gang 
       do iCell = cellSolveStart,cellSolveEnd
 !DIR$ IVDEP
          do k=2,nVertLevels
             tend_w(k,iCell) = tend_w(k,iCell) + tend_w_euler(k,iCell)
          end do
       end do
-
+!$acc end parallel
 !----------- rhs for theta
 
       !
       !  horizontal advection for theta
       !
 
-      do iCell=cellSolveStart,cellSolveEnd    ! Technically updating fewer cells than before...
-         tend_theta(1:nVertLevels,iCell) = 0.0
-         do i=1,nEdgesOnCell(iCell)
-            iEdge = edgesOnCell(i,iCell)
-
-            flux_arr(1:nVertLevels) = 0.0
-
-            do j=1,nAdvCellsForEdge(iEdge)
+!$acc parallel vector_length(128) 
+!$acc loop gang 
+      do iCell=cellSolveStart,cellSolveEnd  ! Technically updating fewer cells than before...
+!$acc loop private(flux)
+         do k=1,nVertLevels
+           tend_theta(k,iCell) = 0.0
+!$acc loop seq
+           do i=1,nEdgesOnCell(iCell)
+             iEdge = edgesOnCell(i,iCell)
+             flux = 0.0
+!$acc loop seq
+             do j=1,nAdvCellsForEdge(iEdge)
+               scalar_weight = adv_coefs(j,iEdge) + sign(1.0_RKIND,ru(k,iEdge))*adv_coefs_3rd(j,iEdge)
                iAdvCell = advCellsForEdge(j,iEdge)
-               do k=1,nVertLevels
-                  scalar_weight = adv_coefs(j,iEdge) + sign(1.0_RKIND,ru(k,iEdge))*adv_coefs_3rd(j,iEdge)
-                  flux_arr(k) = flux_arr(k) + scalar_weight* theta_m(k,iAdvCell)
-               end do
-            end do
-
-!DIR$ IVDEP
-            do k=1,nVertLevels
-               tend_theta(k,iCell) = tend_theta(k,iCell) - edgesOnCell_sign(i,iCell) * ru(k,iEdge) * flux_arr(k)
-            end do
-
+               flux = flux + scalar_weight* theta_m(k,iAdvCell)
+             end do
+           tend_theta(k,iCell) = tend_theta(k,iCell) - edgesOnCell_sign(i,iCell) * ru(k,iEdge) * flux
+           end do
          end do
       end do
+!$acc end parallel
 
 !  addition to pick up perturbation flux for rtheta_pp equation
 
       if(rk_step > 1) then
+!$acc parallel vector_length(128)
+!$acc loop gang private(flux)
         do iCell=cellSolveStart,cellSolveEnd
-          do i=1,nEdgesOnCell(iCell) 
-            iEdge = edgesOnCell(i,iCell)
-            cell1 = cellsOnEdge(1,iEdge)
-            cell2 = cellsOnEdge(2,iEdge)
-!DIR$ IVDEP
-            do k=1,nVertLevels
+          do k=1,nVertLevels
+!$acc loop seq
+            do i=1,nEdgesOnCell(iCell) 
+               iEdge = edgesOnCell(i,iCell)
+               cell1 = cellsOnEdge(1,iEdge)
+               cell2 = cellsOnEdge(2,iEdge)
                flux = edgesOnCell_sign(i,iCell)*dvEdge(iEdge)*(ru_save(k,iEdge)-ru(k,iEdge))*0.5*(theta_m_save(k,cell2)+theta_m_save(k,cell1))
                tend_theta(k,iCell) = tend_theta(k,iCell)-flux  ! division by areaCell picked up down below
             end do
           end do
         end do
+!$acc end parallel
       end if
 
       !
@@ -2343,22 +2385,22 @@ module atm_time_integration
 
       if (rk_step == 1) then
 
-         delsq_theta(1:nVertLevels,cellStart:cellEnd) = 0.0
-
+!$acc parallel vector_length(128)
+!$acc loop gang 
          do iCell=cellStart,cellEnd
-            tend_theta_euler(1:nVertLevels,iCell) = 0.0
+            do k=1,nVertLevels
+            delsq_theta(k,iCell) = 0.0
+            tend_theta_euler(k,iCell) = 0.0
+           
             r_areaCell = invAreaCell(iCell)
+!$acc loop seq
             do i=1,nEdgesOnCell(iCell)
                iEdge = edgesOnCell(i,iCell)
                edge_sign = r_areaCell*edgesOnCell_sign(i,iCell) * dvEdge(iEdge) * invDcEdge(iEdge)
                pr_scale = prandtl_inv * meshScalingDel2(iEdge)
                cell1 = cellsOnEdge(1,iEdge)
                cell2 = cellsOnEdge(2,iEdge)
-!DIR$ IVDEP
-               do k=1,nVertLevels
-
-!  we are computing the Smagorinsky filter at more points than needed here so as to pick up the delsq_theta for 4th order filter below
-
+!  we are computing the Smagorinsky filter at more points than needed here so as to pick up the delsq_theta for 4th order filter below           
                   theta_turb_flux = edge_sign*(theta_m(k,cell2) - theta_m(k,cell1))*rho_edge(k,iEdge)
                   delsq_theta(k,iCell) = delsq_theta(k,iCell) + theta_turb_flux
                   theta_turb_flux = theta_turb_flux*0.5*(kdiff(k,cell1)+kdiff(k,cell2)) * pr_scale
@@ -2366,27 +2408,31 @@ module atm_time_integration
 
                end do
             end do
-          end do
+         end do 
+!$acc end parallel
 
 !$OMP BARRIER
             
          if (h_theta_eddy_visc4 > 0.0) then  ! 4th order mixing is active
 
-            do iCell=cellSolveStart,cellSolveEnd    ! Technically updating fewer cells than before...
-               r_areaCell = h_theta_eddy_visc4 * prandtl_inv * invAreaCell(iCell)
-               do i=1,nEdgesOnCell(iCell)
+!$acc parallel vector_length(128)
+!$acc loop gang 
+         do iCell=cellSolveStart,cellSolveEnd    ! Technically updating fewer cells than before...
+            r_areaCell = h_theta_eddy_visc4 * prandtl_inv * invAreaCell(iCell)
+            do i=1,nEdgesOnCell(iCell)
 
-                  iEdge = edgesOnCell(i,iCell)
-                  edge_sign = meshScalingDel4(iEdge)*r_areaCell*dvEdge(iEdge)*edgesOnCell_sign(i,iCell)*invDcEdge(iEdge)
+               iEdge = edgesOnCell(i,iCell)
+               edge_sign = meshScalingDel4(iEdge)*r_areaCell*dvEdge(iEdge)*edgesOnCell_sign(i,iCell)*invDcEdge(iEdge)
 
-                  cell1 = cellsOnEdge(1,iEdge)
-                  cell2 = cellsOnEdge(2,iEdge)
+               cell1 = cellsOnEdge(1,iEdge)
+               cell2 = cellsOnEdge(2,iEdge)
 
-                  do k=1,nVertLevels
-                     tend_theta_euler(k,iCell) = tend_theta_euler(k,iCell) - edge_sign*(delsq_theta(k,cell2) - delsq_theta(k,cell1))
-                  end do
+               do k=1,nVertLevels
+                  tend_theta_euler(k,iCell) = tend_theta_euler(k,iCell) - edge_sign*(delsq_theta(k,cell2) - delsq_theta(k,cell1))
                end do
             end do
+         end do
+!$acc end parallel
 
          end if ! 4th order mixing is active 
 
@@ -2396,31 +2442,39 @@ module atm_time_integration
       !  vertical advection plus diabatic term
       !  Note: we are also dividing through by the cell area after the horizontal flux divergence
       !
+!$acc parallel vector_length(128) 
+!$acc loop gang
       do iCell = cellSolveStart,cellSolveEnd
 
-         wdtz(1) = 0.0
+         wdtz(1,iCell) = 0.0
 
          k = 2
-         wdtz(k) =  rw(k,icell)*(fzm(k)*theta_m(k,iCell)+fzp(k)*theta_m(k-1,iCell))  
-         wdtz(k) =  wdtz(k)+(rw_save(k,icell)-rw(k,icell))*(fzm(k)*theta_m_save(k,iCell)+fzp(k)*theta_m_save(k-1,iCell))
+         wdtz(k,iCell) =  rw(k,icell)*(fzm(k)*theta_m(k,iCell)+fzp(k)*theta_m(k-1,iCell))  
+         wdtz(k,iCell) =  wdtz(k,iCell)+(rw_save(k,icell)-rw(k,icell))*(fzm(k)*theta_m_save(k,iCell)+fzp(k)*theta_m_save(k-1,iCell))
+!$acc loop vector
          do k=3,nVertLevels-1
-            wdtz(k) = flux3( theta_m(k-2,iCell),theta_m(k-1,iCell),theta_m(k,iCell),theta_m(k+1,iCell), rw(k,iCell), coef_3rd_order )
-            wdtz(k) =  wdtz(k) + (rw_save(k,icell)-rw(k,iCell))*(fzm(k)*theta_m_save(k,iCell)+fzp(k)*theta_m_save(k-1,iCell))  ! rtheta_pp redefinition
+            wdtz(k,iCell) = flux3( theta_m(k-2,iCell),theta_m(k-1,iCell),theta_m(k,iCell),theta_m(k+1,iCell), rw(k,iCell), coef_3rd_order )
+            wdtz(k,iCell) =  wdtz(k,iCell) + (rw_save(k,icell)-rw(k,iCell))*(fzm(k)*theta_m_save(k,iCell)+fzp(k)*theta_m_save(k-1,iCell))  ! rtheta_pp redefinition
          end do
          k = nVertLevels
-         wdtz(k) =  rw_save(k,icell)*(fzm(k)*theta_m(k,iCell)+fzp(k)*theta_m(k-1,iCell))  ! rtheta_pp redefinition
+         wdtz(k,iCell) =  rw_save(k,icell)*(fzm(k)*theta_m(k,iCell)+fzp(k)*theta_m(k-1,iCell))  ! rtheta_pp redefinition
 
-         wdtz(nVertLevels+1) = 0.0
+         wdtz(nVertLevels+1,iCell) = 0.0
+     end do
+!$acc end parallel
 
+!$acc parallel vector_length(128) 
+!$acc loop gang
+     do iCell = cellSolveStart,cellSolveEnd
 !DIR$ IVDEP
          do k=1,nVertLevels
-            tend_theta(k,iCell) = tend_theta(k,iCell)*invAreaCell(iCell) -rdzw(k)*(wdtz(k+1)-wdtz(k))
+            tend_theta(k,iCell) = tend_theta(k,iCell)*invAreaCell(iCell) -rdzw(k)*(wdtz(k+1,iCell)-wdtz(k,iCell))
             tend_rtheta_adv(k,iCell) = tend_theta(k,iCell)   !  this is for the Tiedke scheme
             rthdynten(k,iCell) = tend_theta(k,iCell)/rho_zz(k,iCell)  !  this is for the Grell-Freitas scheme
             tend_theta(k,iCell) = tend_theta(k,iCell) + rho_zz(k,iCell)*rt_diabatic_tend(k,iCell)
          end do
       end do
-
+!$acc end parallel
       !
       !  vertical mixing for theta - 2nd order 
       !
@@ -2430,6 +2484,8 @@ module atm_time_integration
          if ( v_theta_eddy_visc2 > 0.0 ) then  ! vertical mixing for theta_m
 
             if (config_mix_full) then
+!$acc parallel vector_length(128) 
+!$acc loop gang
 
                do iCell = cellSolveStart,cellSolveEnd
                   do k=2,nVertLevels-1
@@ -2447,9 +2503,12 @@ module atm_time_integration
                                              -(theta_m(k  ,iCell)-theta_m(k-1,iCell))/(z0-zm) )/(0.5*(zp-zm))
                   end do
                end do
+!$acc end parallel
 
          else  ! idealized cases where we mix on the perturbation from the initial 1-D state
 
+!$acc parallel vector_length(128) 
+!$acc loop gang
                do iCell = cellSolveStart,cellSolveEnd
                   do k=2,nVertLevels-1
                      z1 = zgrid(k-1,iCell)
@@ -2466,13 +2525,15 @@ module atm_time_integration
                                              -((theta_m(k  ,iCell)-t_init(k,iCell))-(theta_m(k-1,iCell)-t_init(k-1,iCell)))/(z0-zm) )/(0.5*(zp-zm))
                   end do
                end do
-
+!$acc end parallel
             end if
 
          end if
 
       end if ! compute vertical theta mixing on first rk_step
 
+!$acc parallel vector_length(128) 
+!$acc loop gang
       do iCell = cellSolveStart,cellSolveEnd
 !DIR$ IVDEP
          do k=1,nVertLevels
@@ -2480,7 +2541,7 @@ module atm_time_integration
             tend_theta(k,iCell) = tend_theta(k,iCell) + tend_theta_euler(k,iCell) + tend_rtheta_physics(k,iCell)
          end do
       end do
-
+!$acc end parallel
    end subroutine atm_compute_dyn_tend_work
 
 
